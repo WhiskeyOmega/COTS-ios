@@ -19,17 +19,23 @@ on:
 jobs:
   build:
     name: CI build
-    runs-on: macos-15
+    runs-on: macos-26
     steps:
       - name: Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Build Environment
         env:
           NotificationEndpointDebug: ${{ secrets.NotificationEndpointDebug }}
           NotificationEndpointRelease: ${{ secrets.NotificationEndpointRelease }}
         run: exec ./.github/scripts/setup.sh
       - name: Select required Xcode version
-        run: sudo xcode-select -switch /Applications/Xcode_26.2.app
+        run: |
+          if [ -d /Applications/Xcode_26.2.app ]; then
+            sudo xcode-select -switch /Applications/Xcode_26.2.app
+          else
+            echo "Xcode 26.2 not on this image; using default"; ls -d /Applications/Xcode*.app
+          fi
+          xcodebuild -version
       - name: Build App
         run: bundle exec fastlane ios build_only
       - name: Build Tests

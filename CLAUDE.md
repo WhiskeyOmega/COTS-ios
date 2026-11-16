@@ -54,7 +54,7 @@ bundle ID), Apple team/signing (fastlane Appfile/Matchfile), App Store listing.
 
 - **This cloud container has no Xcode or Swift toolchain.** Nothing can be compiled or run here.
   Agents must reason carefully about types/imports and say plainly that a change is unverified.
-- Real verification is GitHub Actions `.github/workflows/build-only.yml` on `macos-15` / Xcode 26.2
+- Real verification is GitHub Actions `.github/workflows/build-only.yml` on `macos-26` / Xcode 26.2 when present (macos-15 runners stopped being assigned)
   (`bundle exec fastlane ios build_only` and `build_tests`). It triggers on pushes to `master`, `develop`,
   `feature/*`, `issue/*`, `claude/**` and PRs into `develop`.
 - Never claim "builds" or "tests pass" without a CI run that shows it.
