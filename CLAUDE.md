@@ -25,7 +25,10 @@ GIT_LFS_SKIP_SMUDGE=1 git clone --depth 60 https://github.com/WhiskeyOmega/Cupof
 | Signup | DOB wording changed on Android (commit `c5a865d`) — match it |
 | Bundle ID | `social.cupoftea.social`; extensions `social.cupoftea.social.<ExtensionName>` (decided by user) |
 | App Group | `group.social.cupoftea.social` (derived from bundle ID) |
-| Keychain service | `social.cupoftea.social.keychain` (derived from bundle ID) |
+| Keychain services | `social.cupoftea.social.keychain` (AppSecret) and `social.cupoftea.social.authentications` (AuthenticationServiceProvider), derived from bundle ID |
+| Colour roles | Tint/buttons `#001839`; links `#2F5A9E` (`Brand/Link`); dark-mode tint and links `#5C8FD6`; dark fill `#2F5A9E` (lead defaults, user may override) |
+| Constants | `public enum Cupoftea` in `MastodonSDK/Sources/MastodonCommon/Cupoftea.swift` (needs `import MastodonCommon`); `Mastodon.Entity.Server.cupofteaSocial` |
+| Settings links | Feedback → https://github.com/WhiskeyOmega/COTS-ios/issues; Ko-fi donate row |
 | Brand colour | `#001839` (main brand colour, decided by user) |
 | Mascot | Tea-drinking mammoth. Asset `Scene/Welcome/cupoftea.mascot` in `MastodonAsset`; app icon layer `AppIcon.icon/Assets/cupoftea-mascot-1024.png` on a `#001839` fill |
 | CI | `build-only.yml` also runs on `claude/**` branches (decided by user) |
