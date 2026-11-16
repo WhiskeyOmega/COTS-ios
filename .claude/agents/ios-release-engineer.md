@@ -11,7 +11,7 @@ and `Documentation/Deployment.md` first.
 ## Where things live
 
 - Bundle IDs: `PRODUCT_BUNDLE_IDENTIFIER` in `Mastodon.xcodeproj/project.pbxproj` (app + every extension,
-  every build configuration). Currently `org.joinmastodon.app*`.
+  every build configuration). Now `social.cupoftea.social*` (see CLAUDE.md).
 - App Group: `MastodonSDK/Sources/MastodonCommon/AppName.swift` plus each target's `.entitlements`.
 - Keychain service and push relay: `MastodonSDK/Sources/MastodonCore/AppSecret.swift`; relay endpoints
   also come from `.env` (`.env.example`, `.github/scripts/setup.sh`).

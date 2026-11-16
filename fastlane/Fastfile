@@ -6,14 +6,14 @@ $appName = "Mastodon"
 
 platform :ios do
   before_all do |lane|
-    $bundle_id = "org.joinmastodon.app"
+    $bundle_id = "social.cupoftea.social"
     $all_bundle_ids = [
       $bundle_id,
-      "org.joinmastodon.app.MastodonIntent", 
-      "org.joinmastodon.app.NotificationService", 
-      "org.joinmastodon.app.ShareActionExtension",
-      "org.joinmastodon.app.OpenInActionExtension",
-      "org.joinmastodon.app.WidgetExtension"
+      "social.cupoftea.social.MastodonIntent", 
+      "social.cupoftea.social.NotificationService", 
+      "social.cupoftea.social.ShareActionExtension",
+      "social.cupoftea.social.OpenInActionExtension",
+      "social.cupoftea.social.WidgetExtension"
     ]
 
     lanes_for_building = [:deploy_appstore]

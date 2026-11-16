@@ -14,6 +14,8 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleDisplayName</key>
+	<string>Cupoftea.social</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
@@ -24,10 +26,10 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>org.joinmastodon.app</string>
+			<string>social.cupoftea.social</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>mastodon</string>
+				<string>cupoftea</string>
 			</array>
 		</dict>
 	</array>

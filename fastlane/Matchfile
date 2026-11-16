@@ -4,11 +4,11 @@ git_branch("main")
 type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
 
 app_identifier([
-  "org.joinmastodon.app",
-  "org.joinmastodon.app.MastodonIntent", 
-  "org.joinmastodon.app.NotificationService", 
-  "org.joinmastodon.app.ShareActionExtension",
-  "org.joinmastodon.app.OpenInActionExtension",
-  "org.joinmastodon.app.WidgetExtension"
+  "social.cupoftea.social",
+  "social.cupoftea.social.MastodonIntent", 
+  "social.cupoftea.social.NotificationService", 
+  "social.cupoftea.social.ShareActionExtension",
+  "social.cupoftea.social.OpenInActionExtension",
+  "social.cupoftea.social.WidgetExtension"
 ])
 # username("fastlane@joinmastodon.org")
