@@ -17,9 +17,39 @@ on:
 # macOS environments: https://github.com/actions/virtual-environments/tree/main/images/macos
 
 jobs:
+  validate:
+    name: Validate JSON and plists
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse asset/strings JSON and plists
+        run: |
+          python3 - <<'PY'
+          import json, plistlib, pathlib, sys
+          bad = 0
+          for p in pathlib.Path('.').rglob('*'):
+              if '.git' in p.parts or not p.is_file():
+                  continue
+              try:
+                  if p.suffix in ('.json', '.xcstrings'):
+                      json.loads(p.read_text(encoding='utf-8'))
+                  elif p.suffix in ('.plist', '.entitlements'):
+                      data = p.read_bytes()
+                      if data.lstrip().startswith(b'{'):
+                          continue  # old-style OpenStep plist; Xcode-only format
+                      plistlib.loads(data)
+              except Exception as e:
+                  bad += 1
+                  print(f"::error file={p}::{e}")
+          print("invalid files:", bad)
+          sys.exit(1 if bad else 0)
+          PY
+
   build:
     name: CI build
     runs-on: macos-26
+    timeout-minutes: 90
     steps:
       - name: Repository
         uses: actions/checkout@v4
