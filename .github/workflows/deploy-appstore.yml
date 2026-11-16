@@ -1,10 +1,7 @@
 name: Deploy App Store
+# Manual only until Cupoftea.social signing is set up (was: push to develop / release*)
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - develop
-      - release*
 jobs:
   deploy_appstore:
     name: Deploy App Store

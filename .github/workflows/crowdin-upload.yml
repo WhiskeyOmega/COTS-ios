@@ -1,13 +1,7 @@
 name: Crowdin / Upload translations
 
+# Manual only until a Cupoftea.social Crowdin project exists (was: push to develop on string changes)
 on:
-  push:
-    branches:
-      - "develop"
-    paths:
-      - MastodonSDK/Sources/MastodonLocalization/Resources/*.xcstrings
-      - MastodonIntent/en.lproj/Intents.strings
-      - MastodonIntent/en.lproj/Intents.stringsdict
   workflow_dispatch:
 
 permissions:
