@@ -123,6 +123,10 @@ public struct L10nLookup {
                     return result
                 }
                 
+                public static var donateCupoftea: String {
+                    tr("Localizable", "Scene.Settings.Overview.DonateCupoftea")
+                }
+                
                 public static var feedbackTitle: String {
                     return tr("Localizable-Settings", "Scene.Settings.Overview.feedbackTitle")
                 }

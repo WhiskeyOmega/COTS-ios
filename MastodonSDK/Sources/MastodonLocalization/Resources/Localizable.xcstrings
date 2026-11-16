@@ -198982,13 +198982,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%@**, you can go back and pick a different server."
+            "value" : "Although the Cupoftea.social app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%@**, you can go back."
           }
         },
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Although the Mastodon app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%@**, you can go back and pick a different server."
+            "value" : "Although the Cupoftea.social app does not collect any data, the server you sign up through may have a different policy.\n\nIf you disagree with the policy for **%@**, you can go back."
           }
         },
         "es" : {
@@ -250935,13 +250935,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Open URL in Mastodon"
+            "value" : "Open URL in Cupoftea.social"
           }
         },
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Open URL in Mastodon"
+            "value" : "Open URL in Cupoftea.social"
           }
         },
         "es" : {
@@ -263997,13 +263997,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Contribute to Mastodon"
+            "value" : "Contribute to Cupoftea.social"
           }
         },
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Contribute to Mastodon"
+            "value" : "Contribute to Cupoftea.social"
           }
         },
         "es" : {
@@ -270217,13 +270217,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Open in Mastodon"
+            "value" : "Open in Cupoftea.social"
           }
         },
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Open in Mastodon"
+            "value" : "Open in Cupoftea.social"
           }
         },
         "es" : {
@@ -273638,13 +273638,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "About Mastodon"
+            "value" : "About Cupoftea.social"
           }
         },
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "About Mastodon"
+            "value" : "About Cupoftea.social"
           }
         },
         "es" : {
@@ -274191,6 +274191,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "長按工具列中的大頭貼以切換帳號"
+          }
+        }
+      }
+    },
+    "Scene.Settings.Overview.DonateCupoftea" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Donate to Cupoftea.social"
           }
         }
       }
@@ -286390,13 +286401,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Welcome to Mastodon"
+            "value" : "Welcome to Cupoftea.social"
           }
         },
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Welcome to Mastodon"
+            "value" : "Welcome to Cupoftea.social"
           }
         },
         "es" : {
@@ -289189,13 +289200,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Please open Mastodon to log in to an Account."
+            "value" : "Please open Cupoftea.social to log in to an Account."
           }
         },
         "en-US" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Please open Mastodon to log in to an Account."
+            "value" : "Please open Cupoftea.social to log in to an Account."
           }
         },
         "es" : {

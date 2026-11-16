@@ -82,7 +82,7 @@
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
-					<string>Post ${content} on Mastodon</string>
+					<string>Post ${content} on Cupoftea.social</string>
 					<key>INIntentParameterCombinationTitleID</key>
 					<string>WCIR3D</string>
 				</dict>
@@ -100,7 +100,7 @@
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
-					<string>Post on Mastodon</string>
+					<string>Post on Cupoftea.social</string>
 					<key>INIntentParameterCombinationTitleID</key>
 					<string>D2h76g</string>
 				</dict>
@@ -113,7 +113,7 @@
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
-					<string>Post on Mastodon</string>
+					<string>Post on Cupoftea.social</string>
 					<key>INIntentParameterCombinationTitleID</key>
 					<string>CsR7G2</string>
 				</dict>
@@ -128,7 +128,7 @@
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
-					<string>Post on Mastodon</string>
+					<string>Post on Cupoftea.social</string>
 					<key>INIntentParameterCombinationTitleID</key>
 					<string>dUyuGg</string>
 				</dict>
@@ -385,7 +385,7 @@
 				</array>
 			</dict>
 			<key>INIntentTitle</key>
-			<string>Post on Mastodon</string>
+			<string>Post on Cupoftea.social</string>
 			<key>INIntentTitleID</key>
 			<string>16wxgf</string>
 			<key>INIntentType</key>
