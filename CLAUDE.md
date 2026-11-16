@@ -23,10 +23,16 @@ GIT_LFS_SKIP_SMUDGE=1 git clone --depth 60 https://github.com/WhiskeyOmega/Cupof
 | Donate | https://ko-fi.com/cupofteasocial |
 | Source link | https://github.com/WhiskeyOmega/COTS-ios |
 | Signup | DOB wording changed on Android (commit `c5a865d`) — match it |
+| Bundle ID | `social.cupoftea.social`; extensions `social.cupoftea.social.<ExtensionName>` (decided by user) |
+| App Group | `group.social.cupoftea.social` (derived from bundle ID) |
+| Keychain service | `social.cupoftea.social.keychain` (derived from bundle ID) |
+| Brand colour | `#001839` (main brand colour, decided by user) |
+| Mascot | Tea-drinking mammoth. Asset `Scene/Welcome/cupoftea.mascot` in `MastodonAsset`; app icon layer `AppIcon.icon/Assets/cupoftea-mascot-1024.png` on a `#001839` fill |
+| CI | `build-only.yml` also runs on `claude/**` branches (decided by user) |
 
-**Still open — ask the user before changing:** iOS bundle ID (currently `org.joinmastodon.app*`),
-App Group ID (`MastodonSDK/Sources/MastodonCommon/AppName.swift`), keychain service, push relay
-endpoint (`MastodonSDK/Sources/MastodonCore/AppSecret.swift`), Apple team/signing, brand colors.
+**Still open — ask the user before changing:** push relay endpoint
+(`MastodonSDK/Sources/MastodonCore/AppSecret.swift`; Mastodon's relay won't deliver to a different
+bundle ID), Apple team/signing (fastlane Appfile/Matchfile), App Store listing.
 
 ## Codebase map
 
@@ -46,8 +52,8 @@ endpoint (`MastodonSDK/Sources/MastodonCore/AppSecret.swift`), Apple team/signin
 - **This cloud container has no Xcode or Swift toolchain.** Nothing can be compiled or run here.
   Agents must reason carefully about types/imports and say plainly that a change is unverified.
 - Real verification is GitHub Actions `.github/workflows/build-only.yml` on `macos-15` / Xcode 26.2
-  (`bundle exec fastlane ios build_only` and `build_tests`). It only triggers on `master`, `develop`,
-  `feature/*`, `issue/*` pushes and PRs into `develop` — not on `claude/*` branches.
+  (`bundle exec fastlane ios build_only` and `build_tests`). It triggers on pushes to `master`, `develop`,
+  `feature/*`, `issue/*`, `claude/**` and PRs into `develop`.
 - Never claim "builds" or "tests pass" without a CI run that shows it.
 
 ## How work is delegated (orchestration playbook)
