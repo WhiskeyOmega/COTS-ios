@@ -7,17 +7,18 @@
 
 import Foundation
 import Combine
+import MastodonCommon
 import MastodonSDK
 
 extension APIService {
     
     #if DEBUG
-    private static let clientName = "Mastodon for iOS (Development)"
+    private static let clientName = "\(Cupoftea.displayName) (Development)"
     #else
-    private static let clientName = "Mastodon for iOS"
+    private static let clientName = Cupoftea.displayName
     #endif
 
-    private static let appWebsite = "https://app.joinmastodon.org/ios"
+    private static let appWebsite = Cupoftea.websiteURL.absoluteString
     
     public func createApplication(domain: String) async throws -> Mastodon.Entity.Application {
         let query = Mastodon.API.App.CreateQuery(

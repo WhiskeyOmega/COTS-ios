@@ -49,7 +49,7 @@ extension MetaLabel {
         ]
         linkAttributes = [
             .font: font,
-            .foregroundColor: Asset.Colors.Brand.blurple.color
+            .foregroundColor: Asset.Colors.Brand.link.color
         ]
     }
 

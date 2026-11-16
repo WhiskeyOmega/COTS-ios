@@ -9,6 +9,7 @@ import AuthenticationServices
 import UIKit
 import Combine
 import MastodonAsset
+import MastodonCommon
 import MastodonCore
 import MastodonLocalization
 import MastodonSDK
@@ -42,9 +43,22 @@ final class WelcomeViewController: UIViewController {
     let welcomeIllustrationView = WelcomeIllustrationView()
     let separatorView = WelcomeSeparatorView(frame: .zero)
 
-    private(set) lazy var mastodonLogo: UIImageView = {
-        let imageView = UIImageView(image: Asset.Scene.Welcome.mastodonLogo.image)
+    private(set) lazy var mascotImageView: UIImageView = {
+        let imageView = UIImageView(image: Asset.Scene.Welcome.cupofteaMascot.image)
+        imageView.contentMode = .scaleAspectFit
+        imageView.isAccessibilityElement = false
         return imageView
+    }()
+
+    private(set) lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = Cupoftea.displayName
+        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 28, weight: .bold))
+        label.adjustsFontForContentSizeCategory = true
+        label.textColor = Asset.Colors.Brand.navy.color
+        label.textAlignment = .center
+        label.accessibilityTraits.insert(.header)
+        return label
     }()
 
 
@@ -78,29 +92,6 @@ final class WelcomeViewController: UIViewController {
                 )
             }
         }
-        return button
-    }()
-
-    private(set) lazy var pickOtherServerButton: UIButton = {
-        var buttonConfiguration = UIButton.Configuration.borderedTinted()
-        buttonConfiguration.attributedTitle = AttributedString(
-            L10n.Scene.Welcome.pickServer,
-            attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
-        )
-
-        buttonConfiguration.background.cornerRadius = 14
-        buttonConfiguration.background.strokeColor = UIColor.white.withAlphaComponent(0.6)
-        buttonConfiguration.background.strokeWidth = 1
-        buttonConfiguration.baseBackgroundColor = .clear
-        buttonConfiguration.baseForegroundColor = .white
-
-        buttonConfiguration.contentInsets = .init(top: WelcomeViewController.actionButtonPadding.top,
-                                                  leading: WelcomeViewController.actionButtonPadding.left,
-                                                  bottom: WelcomeViewController.actionButtonPadding.bottom,
-                                                  trailing: WelcomeViewController.actionButtonPadding.right)
-
-        let button = UIButton(configuration: buttonConfiguration)
-
         return button
     }()
 
@@ -159,7 +150,8 @@ extension WelcomeViewController {
         case .error(let error):
             displayError(error)
         case .logInToExistingAccountRequested:
-            _ = self.sceneCoordinator?.present(scene: .mastodonLogin(authenticationViewModel: authenticationViewModel, suggestedDomain: viewModel.randomDefaultServer?.domain), from: self, transition: .show)
+            // Cupoftea.social: single server, go straight to OAuth instead of the server login picker
+            logInToCupoftea()
         case .joiningServer:
             break
         case .showingRules(let viewModel):
@@ -173,9 +165,8 @@ extension WelcomeViewController {
         case .showingPrivacyPolicy(let viewModel):
             _ = self.sceneCoordinator?.present(scene: .mastodonPrivacyPolicies(viewModel: viewModel), from: self, transition: .show)
         case .pickingServer:
-            _ = self.sceneCoordinator?.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(joinServer: { [weak self] server in
-                guard let self else { return }
-                try await self.authenticationViewModel.joinServer(server, presentationContextProvider: self) }, displayError: { [weak self] error in self?.displayError(error) })), from: self, transition: .show)
+            // Cupoftea.social: server picker is disabled, the app is locked to a single server
+            break
         case .confirmingEmail(let viewModel):
             _ = self.sceneCoordinator?.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
         case .pendingRegistration(let authBox):
@@ -213,13 +204,20 @@ extension WelcomeViewController {
         view.addSubview(welcomeIllustrationView)
         welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
 
-        mastodonLogo.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(mastodonLogo)
+        mascotImageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(mascotImageView)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
-            mastodonLogo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
-            mastodonLogo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            mastodonLogo.widthAnchor.constraint(equalToConstant: 300),
+            mascotImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            mascotImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mascotImageView.widthAnchor.constraint(equalToConstant: 104),
+            mascotImageView.heightAnchor.constraint(equalToConstant: 120),
+            titleLabel.topAnchor.constraint(equalTo: mascotImageView.bottomAnchor, constant: 8),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: view.readableContentGuide.leadingAnchor),
+            view.readableContentGuide.trailingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor),
         ])
         
         buttonContainer.axis = .vertical
@@ -240,12 +238,6 @@ extension WelcomeViewController {
             joinDefaultServerButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight)
         ])
         
-        pickOtherServerButton.translatesAutoresizingMaskIntoConstraints = false
-        buttonContainer.addArrangedSubview(pickOtherServerButton)
-        NSLayoutConstraint.activate([
-            pickOtherServerButton.heightAnchor.constraint(greaterThanOrEqualToConstant: WelcomeViewController.actionButtonHeight)
-        ])
-
         buttonContainer.addArrangedSubview(separatorView)
 
         signInButton.translatesAutoresizingMaskIntoConstraints = false
@@ -269,7 +261,6 @@ extension WelcomeViewController {
         ])
 
         joinDefaultServerButton.addTarget(self, action: #selector(joinDefaultServerTapped(_:)), for: .touchUpInside)
-        pickOtherServerButton.addTarget(self, action: #selector(pickOtherServerTapped(_:)), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signIn(_:)), for: .touchUpInside)
         learnMoreButton.addTarget(self, action: #selector(learnMore(_:)), for: .touchUpInside)
 
@@ -285,15 +276,7 @@ extension WelcomeViewController {
 
         setupIllustrationLayout()
 
-        configureJoinDefaultServerButton(nil, isLoading: true)
-
-        viewModel.downloadDefaultServer { [weak self] in
-            guard let selectedDefaultServer = self?.viewModel.randomDefaultServer else { return }
-
-            DispatchQueue.main.async {
-                self?.configureJoinDefaultServerButton(selectedDefaultServer.domain, isLoading: false)
-            }
-        }
+        configureJoinDefaultServerButton(Cupoftea.domain, isLoading: false)
     }
     
     private var computedTopAnchorInset: CGFloat {
@@ -330,38 +313,21 @@ extension WelcomeViewController {
 
 extension WelcomeViewController {
     
-    private func joinServer(_ server: Mastodon.Entity.Server) {
-        Task {
-            do {
-                try await authenticationViewModel.joinServer(server, presentationContextProvider: self)
-            } catch let error {
-                displayError(error)
-            }
-        }
-    }
-
     //MARK: - Actions
     @objc
     private func joinDefaultServerTapped(_ sender: UIButton) {
+        let server = Mastodon.Entity.Server.cupofteaSocial
 
-        guard let server = viewModel.randomDefaultServer else { return }
-       
         configureJoinDefaultServerButton(server.domain, isLoading: true)
-        
+
         Task {
             do {
                 try await authenticationViewModel.joinServer(server, presentationContextProvider: self)
-                // reset the button after successful completion (which is not completion of the full sign in process, only the first step of reaching the server and getting the rules)
-                configureJoinDefaultServerButton(server.domain, isLoading: false)
             } catch {
-                // reset to try again with a potentially different random default server
-                guard let randomServer = self.viewModel.pickRandomDefaultServer() else {
-                    configureJoinDefaultServerButton(nil, isLoading: true)
-                    return
-                }
-                self.viewModel.randomDefaultServer = randomServer
-                configureJoinDefaultServerButton(randomServer.domain, isLoading: false)
+                displayError(error)
             }
+            // reset the button after the first step (reaching the server and getting the rules) or on failure
+            configureJoinDefaultServerButton(server.domain, isLoading: false)
         }
     }
     
@@ -388,13 +354,21 @@ extension WelcomeViewController {
     }
 
     @objc
-    private func pickOtherServerTapped(_ sender: UIButton) {
-        authenticationViewModel.pickServer()
-    }
-    
-    @objc
     private func signIn(_ sender: UIButton) {
-        authenticationViewModel.logInRequested()
+        logInToCupoftea()
+    }
+
+    /// Log in to the single supported server (Cupoftea.social) via OAuth, skipping the server picker.
+    private func logInToCupoftea() {
+        guard signInButton.isEnabled else { return }
+        signInButton.isEnabled = false
+        signInButton.configuration?.showsActivityIndicator = true
+
+        Task {
+            await authenticationViewModel.logIn(on: .cupofteaSocial, withPresentationContextProvider: self)
+            signInButton.isEnabled = true
+            signInButton.configuration?.showsActivityIndicator = false
+        }
     }
 
     @objc
@@ -428,13 +402,6 @@ extension WelcomeViewController {
                     priorString, attributes: .init([.font: updatedAttributes])
                 )
             }
-        }
-
-        pickOtherServerButton.registerForTraitChanges([UITraitLegibilityWeight.self]) { (button: UIButton, previousTraitCollection: UITraitCollection) in
-            button.configuration?.attributedTitle = AttributedString(
-                L10n.Scene.Welcome.pickServer,
-                attributes: .init([.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))])
-            )
         }
 
         signInButton.registerForTraitChanges([UITraitLegibilityWeight.self]) { (button: UIButton, previousTraitCollection: UITraitCollection) in

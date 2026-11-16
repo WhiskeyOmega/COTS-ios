@@ -51,6 +51,8 @@ public enum Asset {
       public static let darkBlurple = ColorAsset(name: "Colors/Brand/Dark Blurple")
       public static let eggplant = ColorAsset(name: "Colors/Brand/Eggplant")
       public static let lightBlurple = ColorAsset(name: "Colors/Brand/Light Blurple")
+      public static let link = ColorAsset(name: "Colors/Brand/Link")
+      public static let navy = ColorAsset(name: "Colors/Brand/Navy")
     }
     public enum FigmaToken {
         public static let bgInverted = ColorAsset(name: "Colors/FigmaToken/bgInverted")
@@ -223,6 +225,7 @@ public enum Asset {
       public static let logo = ImageAsset(name: "Scene/Sidebar/logo")
     }
     public enum Welcome {
+      public static let cupofteaMascot = ImageAsset(name: "Scene/Welcome/cupoftea.mascot")
       public enum Illustration {
         public static let backgroundCyan = ColorAsset(name: "Scene/Welcome/illustration/background.cyan")
         public static let backgroundGreen = ColorAsset(name: "Scene/Welcome/illustration/background.green")
@@ -234,7 +237,6 @@ public enum Asset {
         public static let elephantThreeOnGrassWithTreeThree = ImageAsset(name: "Scene/Welcome/illustration/elephant.three.on.grass.with.tree.three")
         public static let elephantThreeOnGrassWithTreeTwo = ImageAsset(name: "Scene/Welcome/illustration/elephant.three.on.grass.with.tree.two")
       }
-      public static let mastodonLogo = ImageAsset(name: "Scene/Welcome/mastodon.logo")
     }
   }
   public enum Settings {

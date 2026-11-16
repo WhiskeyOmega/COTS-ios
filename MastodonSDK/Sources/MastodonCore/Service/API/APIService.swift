@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import MastodonCommon
 import MastodonSDK
 import AlamofireImage
 // import AlamofireNetworkActivityIndicator
@@ -17,8 +18,8 @@ public final class APIService {
     @MainActor
     public static let shared = { APIService() }()
     
-    public static let callbackURLScheme = "mastodon"
-    nonisolated public static let oauthCallbackURL = "mastodon://joinmastodon.org/oauth"
+    public static let callbackURLScheme = Cupoftea.urlScheme
+    nonisolated public static let oauthCallbackURL = "\(Cupoftea.urlScheme)://\(Cupoftea.domain)/oauth"
 
     // internal
     let session: URLSession
@@ -29,7 +30,7 @@ public final class APIService {
     private init() {
         let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Unknown"
         let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = ["User-Agent" : "mastodon-ios/" + appVersion]
+        configuration.httpAdditionalHeaders = ["User-Agent" : "CupofteaIOS/" + appVersion]
         self.session = URLSession(configuration: configuration)
 
         // setup cache. 10MB RAM + 50MB Disk

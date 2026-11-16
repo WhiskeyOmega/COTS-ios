@@ -2,6 +2,7 @@
 
 import WidgetKit
 import SwiftUI
+import MastodonCommon
 import MastodonSDK
 import MastodonLocalization
 import MastodonCore
@@ -131,11 +132,11 @@ struct HashtagWidgetTimelineEntry: TimelineEntry {
             date: .now,
             hashtag: HashtagEntry(
                 accountName: "Unconfigured",
-                account: "@unconfigured@mastodon.social",
-                content: "Caturday is the best day of the week #CatsOfMastodon",
+                account: "@unconfigured@\(Cupoftea.domain)",
+                content: "Every hour is tea time #Tea",
                 reblogCount: 14,
                 favoriteCount: 13,
-                hashtag: "#CatsOfMastodon",
+                hashtag: "#Tea",
                 timestamp: .now.addingTimeInterval(-3600 * 18)
             )
         )

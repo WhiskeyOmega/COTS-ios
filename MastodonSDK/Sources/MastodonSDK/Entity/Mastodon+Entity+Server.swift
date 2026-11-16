@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MastodonCommon
 
 extension Mastodon.Entity {
     
@@ -59,6 +60,11 @@ extension Mastodon.Entity {
         
         public static var mastodonDotSocial: Server {
             return Server(domain: "mastodon.social", instance: Instance(domain: "mastodon.social"))
+        }
+
+        /// The single server this app is locked to.
+        public static var cupofteaSocial: Server {
+            return Server(domain: Cupoftea.domain, instance: Instance(domain: Cupoftea.domain))
         }
     }
 }

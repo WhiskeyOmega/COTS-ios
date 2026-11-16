@@ -18,7 +18,7 @@ extension MastodonSDKTests {
     func _testCreateAnApplication(domain: String) async throws {
         let query = Mastodon.API.App.CreateQuery(
             clientName: "XCTest",
-            redirectURIs: "mastodon://joinmastodon.org/oauth",
+            redirectURIs: "cupoftea://cupoftea.social/oauth",
             website: nil
         )
         let response = try await Mastodon.API.App.create(session: session, domain: domain, query: query)

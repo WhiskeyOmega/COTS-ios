@@ -124,7 +124,7 @@ extension MastodonContentView: View {
                 }
             case .timelinePost(let html, let emojis, let isInlinePreview):
                 if let blocks = try? getParseBlocks(from: html) {
-                    TimelinePostContentView(lineLimit: isInlinePreview ? 4 : nil, contentBlocks: blocks, emojis: emojis, linkColor: Asset.Colors.accent.swiftUIColor)
+                    TimelinePostContentView(lineLimit: isInlinePreview ? 4 : nil, contentBlocks: blocks, emojis: emojis, linkColor: Asset.Colors.Brand.link.swiftUIColor)
                         .font(isInlinePreview ? Font.subheadline : .body)
                 }
             case .header(let html, let emojis, let style):

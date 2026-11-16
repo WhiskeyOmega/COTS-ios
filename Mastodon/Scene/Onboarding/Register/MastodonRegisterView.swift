@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import MastodonCommon
 import MastodonLocalization
 import MastodonSDK
 import MastodonAsset
@@ -182,7 +183,7 @@ struct MastodonRegisterView: View {
                     Spacer()
                 }
             }
-            Text(L10n.Scene.Register.Input.BirthDate.explanationMessage(minAge, viewModel.domain)).font(.callout)
+            Text(L10n.Scene.Register.Input.BirthDate.explanationMessage(minAge, Cupoftea.displayName)).font(.callout)
         }
     }
     

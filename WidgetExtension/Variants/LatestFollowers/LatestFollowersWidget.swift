@@ -3,6 +3,7 @@
 import WidgetKit
 import SwiftUI
 import Intents
+import MastodonCommon
 import MastodonSDK
 import MastodonLocalization
 import MastodonCore
@@ -33,18 +34,18 @@ struct LatestFollowersEntry: TimelineEntry {
             date: .now,
             accounts: [
                 LatestFollowersEntryAccount(
-                    note: "Just another Mastodon user",
-                    displayNameWithFallback: "Mastodon",
-                    acct: "mastodon",
+                    note: "Just another Cupoftea.social user",
+                    displayNameWithFallback: Cupoftea.displayName,
+                    acct: "cupoftea",
                     avatarImage: UIImage(named: "missingAvatar")!,
-                    domain: "mastodon"
+                    domain: Cupoftea.domain
                 ),
                 LatestFollowersEntryAccount(
-                    note: "Yet another Mastodon user",
-                    displayNameWithFallback: "Mastodon",
-                    acct: "mastodon",
+                    note: "Yet another Cupoftea.social user",
+                    displayNameWithFallback: Cupoftea.displayName,
+                    acct: "cupoftea",
                     avatarImage: UIImage(named: "missingAvatar")!,
-                    domain: "mastodon"
+                    domain: Cupoftea.domain
                 )
             ],
             configuration: LatestFollowersIntent()

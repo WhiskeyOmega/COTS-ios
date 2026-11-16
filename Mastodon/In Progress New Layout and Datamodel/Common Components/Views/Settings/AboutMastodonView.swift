@@ -3,6 +3,7 @@
 import SwiftUI
 import MastodonLocalization
 import MastodonAsset
+import MastodonCommon
 import MastodonSDK
 import MastodonCore
 
@@ -22,22 +23,18 @@ struct AboutMastodonView: View {
                         result.completeIfNeeded()
                     }
                 
-                // Contribute to Mastodon
+                // Contribute to Cupoftea.social
                 NavigationRow(label: L10n.Scene.Settings.AboutMastodon.contributeToMastodon, sublabel: nil)
                     .onTapGesture {
-                        if let url = URL(string: "https://github.com/mastodon/mastodon-ios") {
-                            let result = navigator.openUrl(url, afterDeconflictionDelay: false)
-                            result.completeIfNeeded()
-                        }
+                        let result = navigator.openUrl(Cupoftea.sourceCodeURL, afterDeconflictionDelay: false)
+                        result.completeIfNeeded()
                     }
                 
                 // Privacy Policy
                 NavigationRow(label: L10n.Scene.Settings.AboutMastodon.privacyPolicy, sublabel: nil)
                     .onTapGesture {
-                        if let url = authBox.authentication.privacyPolicyURL {
-                            let result = navigator.openUrl(url, afterDeconflictionDelay: false)
-                            result.completeIfNeeded()
-                        }
+                        let result = navigator.openUrl(Cupoftea.privacyPolicyURL, afterDeconflictionDelay: false)
+                        result.completeIfNeeded()
                     }
             }
             
@@ -51,7 +48,7 @@ struct AboutMastodonView: View {
             }
         }
         .safeAreaInset(edge: .bottom) {
-            Text("Mastodon for iOS v\(UIApplication.appVersion()) (\(UIApplication.appBuild()))")
+            Text("\(Cupoftea.displayName) v\(UIApplication.appVersion()) (\(UIApplication.appBuild()))")
                 .padding(.vertical)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .font(.footnote)

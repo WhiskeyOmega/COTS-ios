@@ -57,7 +57,7 @@ class PolicyViewModel: ObservableObject {
         self.didAccept = didAccept
         self.sections = [
             .termsOfService([.serverTermsOfService(domain: domain, confirmedReachable: false)]),
-            .privacy([.iosAppPrivacy, .serverPrivacy(domain: domain)])
+            .privacy([.serverPrivacy(domain: domain)])
         ]
         
         checkForTermsOfService(domain)
@@ -83,7 +83,7 @@ class PolicyViewModel: ObservableObject {
                 
                 self.sections = [
                     .termsOfService([.serverTermsOfService(domain: domain, confirmedReachable: true)]),
-                    .privacy([.iosAppPrivacy, .serverPrivacy(domain: domain)])
+                    .privacy([.serverPrivacy(domain: domain)])
                 ]
             }
             .resume()
@@ -92,7 +92,7 @@ class PolicyViewModel: ObservableObject {
     
     func removeTermsOfServiceSection() {
         sections = [
-            .privacy([.iosAppPrivacy, .serverPrivacy(domain: domain)])
+            .privacy([.serverPrivacy(domain: domain)])
         ]
     }
 }

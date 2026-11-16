@@ -55,7 +55,7 @@ public struct MetaTextViewRepresentable: UIViewRepresentable {
         ]
         metaText.linkAttributes = [
             .font: font,
-            .foregroundColor: Asset.Colors.Brand.blurple.color,
+            .foregroundColor: Asset.Colors.Brand.link.color,
         ]
                 
         metaText.paragraphStyle = NSMutableParagraphStyle()

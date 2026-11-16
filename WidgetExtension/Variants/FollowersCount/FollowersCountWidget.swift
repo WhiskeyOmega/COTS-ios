@@ -3,6 +3,7 @@
 import WidgetKit
 import SwiftUI
 import Intents
+import MastodonCommon
 import MastodonSDK
 import MastodonCore
 import MastodonLocalization
@@ -35,10 +36,10 @@ struct FollowersCountEntry: TimelineEntry {
             date: .now,
             account: FollowersEntryAccount(
                 followersCount: 99_900,
-                displayNameWithFallback: "Mastodon",
-                acct: "mastodon",
+                displayNameWithFallback: Cupoftea.displayName,
+                acct: "cupoftea",
                 avatarImage: UIImage(named: "missingAvatar")!,
-                domain: "mastodon"
+                domain: Cupoftea.domain
             ),
             configuration: FollowersCountIntent()
         )

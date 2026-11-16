@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import MastodonCommon
 import MastodonCore
 import MastodonSDK
 import MastodonLocalization
@@ -22,7 +23,7 @@ enum PolicyRow {
     var url: URL? {
         switch self {
         case .iosAppPrivacy:
-            return URL(string: "https://joinmastodon.org/ios/privacy")
+            return Cupoftea.privacyPolicyURL
         case .serverPrivacy(let domain):
             return URL(string: "https://\(domain)/privacy-policy")
         case .serverTermsOfService(let domain, _):

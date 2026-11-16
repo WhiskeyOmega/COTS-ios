@@ -9,6 +9,7 @@ import Combine
 import UIKit
 import MobileCoreServices
 import UniformTypeIdentifiers
+import MastodonCommon
 import MastodonCore
 import MastodonSDK
 import MastodonLocalization
@@ -82,11 +83,11 @@ private extension ActionRequestHandler {
                 let value = result.value
                 if let foundAccount = value.accounts.first {
                     self?.doneWithResults([
-                        "openURL": "mastodon://profile/\(foundAccount.acct)"
+                        "openURL": "\(Cupoftea.urlScheme)://profile/\(foundAccount.acct)"
                     ])
                 } else if let foundStatus = value.statuses.first {
                     self?.doneWithResults([
-                        "openURL": "mastodon://status/\(foundStatus.id)"
+                        "openURL": "\(Cupoftea.urlScheme)://status/\(foundStatus.id)"
                     ])
                 } else if let foundHashtag = value.hashtags.first {
                     self?.continueWithSearch(foundHashtag.name)
@@ -107,7 +108,7 @@ private extension ActionRequestHandler {
             return
         }
         doneWithResults(
-            ["openURL": "mastodon://search?query=\(query)"]
+            ["openURL": "\(Cupoftea.urlScheme)://search?query=\(query)"]
         )
     }
 }

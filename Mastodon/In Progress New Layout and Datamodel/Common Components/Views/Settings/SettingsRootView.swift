@@ -2,6 +2,7 @@
 
 import SwiftUI
 import MastodonSDK
+import MastodonCommon
 import MastodonCore
 import MastodonLocalization
 import MastodonAsset
@@ -119,9 +120,9 @@ struct SettingsRootView: View {
     let domain: String
     
     var settingsGroups: [SettingsGroup] {
-        let all: [SettingsGroup] = [ .basic, .server, .donations, .betaFeatures, .feedback ].filter { group in
+        let all: [SettingsGroup] = [ .basic, .server, .support, .donations, .betaFeatures, .feedback ].filter { group in
             switch group {
-            case .basic, .server, .feedback: return true
+            case .basic, .server, .support, .feedback: return true
             case .donations: return Mastodon.Entity.DonationCampaign.isEligibleForDonationsSettingsSection(domain: domain)
             case .betaFeatures:
                 return UserDefaults.isDebugOrTestflightOrSimulator
@@ -183,6 +184,7 @@ struct SettingsRootView: View {
 enum SettingsGroup: String, Identifiable {
     case basic
     case server
+    case support
     case donations
     case betaFeatures
     case feedback
@@ -193,6 +195,8 @@ enum SettingsGroup: String, Identifiable {
             [.general, .notifications, .privacySafety]
         case .server:
             [.serverDetails(domain: domain), .aboutMastodon]
+        case .support:
+            [.donateCupoftea]
         case .donations:
             [.makeDonation, .manageDonations]
         case .betaFeatures:
@@ -215,6 +219,7 @@ enum SettingsRow: Hashable, Identifiable {
     case manageDonations
     case manageBetaFeatures
     case openFeedback
+    case donateCupoftea
     
     var id: Self { self }
     
@@ -238,6 +243,8 @@ enum SettingsRow: Hashable, Identifiable {
             return "Beta Features"
         case .openFeedback:
             return L10nLookup.Scene.Settings.Overview.feedbackTitle
+        case .donateCupoftea:
+            return L10nLookup.Scene.Settings.Overview.donateCupoftea
         }
     }
     
@@ -247,7 +254,7 @@ enum SettingsRow: Hashable, Identifiable {
             return domain
         case .general, .notifications, .privacySafety, .makeDonation, .manageDonations, .aboutMastodon:
             return nil
-        case .manageBetaFeatures:
+        case .manageBetaFeatures, .donateCupoftea:
             return nil
         case .openFeedback:
             return L10nLookup.Scene.Settings.Overview.feedbackSubtitle
@@ -263,7 +270,7 @@ enum SettingsRow: Hashable, Identifiable {
         switch self {
         case .general, .notifications, .privacySafety, .serverDetails(_), .aboutMastodon, .manageBetaFeatures:
             return .inApp
-        case .manageDonations, .openFeedback:
+        case .manageDonations, .openFeedback, .donateCupoftea:
             return .external
         case .makeDonation:
             return nil
@@ -290,6 +297,8 @@ enum SettingsRow: Hashable, Identifiable {
             return Image(systemName: "wrench.adjustable.fill")
         case .openFeedback:
             return Image(systemName: "bubble.right.fill")
+        case .donateCupoftea:
+            return Image(systemName: "heart.fill")
         }
     }
     
@@ -303,7 +312,7 @@ enum SettingsRow: Hashable, Identifiable {
             return .blue
         case .serverDetails(_):
             return .teal
-        case .makeDonation, .manageDonations, .openFeedback:
+        case .makeDonation, .manageDonations, .openFeedback, .donateCupoftea:
             return Asset.Colors.accent.swiftUIColor
         case .aboutMastodon:
             return Asset.Colors.accent.swiftUIColor
@@ -315,7 +324,7 @@ enum SettingsRow: Hashable, Identifiable {
     
     var textColor: Color {
         switch self {
-        case .general, .notifications, .privacySafety, .makeDonation, .manageDonations, .aboutMastodon, .serverDetails(_), .openFeedback:
+        case .general, .notifications, .privacySafety, .makeDonation, .manageDonations, .aboutMastodon, .serverDetails(_), .openFeedback, .donateCupoftea:
             return .primary
         case .manageBetaFeatures:
             return Asset.Colors.accent.swiftUIColor
@@ -344,7 +353,9 @@ extension SettingsRow {
         case .manageBetaFeatures:
             return .pushDestination(.betaFeatures)
         case .openFeedback:
-            return .openUrl(URL(string: "https://community.joinmastodon.org/"))
+            return .openUrl(Cupoftea.feedbackURL)
+        case .donateCupoftea:
+            return .openUrl(Cupoftea.donateURL)
         }
     }
 }

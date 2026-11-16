@@ -16,11 +16,11 @@ extension MastodonSDKTests {
     }
     
     func _testOAuthAuthorize(domain: String) throws {
-        let query = Mastodon.API.OAuth.AuthorizeQuery(clientID: "StubClientID", redirectURI: "mastodon://joinmastodon.org/oauth")
+        let query = Mastodon.API.OAuth.AuthorizeQuery(clientID: "StubClientID", redirectURI: "cupoftea://cupoftea.social/oauth")
         let authorizeURL = Mastodon.API.OAuth.authorizeURL(domain: domain, query: query)
         XCTAssertEqual(
             authorizeURL.absoluteString,
-            "\(URL.httpScheme(domain: domain))://\(domain)/oauth/authorize?response_type=code&client_id=StubClientID&redirect_uri=mastodon://joinmastodon.org/oauth&scope=read%20write%20follow%20push"
+            "\(URL.httpScheme(domain: domain))://\(domain)/oauth/authorize?response_type=code&client_id=StubClientID&redirect_uri=cupoftea://cupoftea.social/oauth&scope=read%20write%20follow%20push"
         )
     }
 
